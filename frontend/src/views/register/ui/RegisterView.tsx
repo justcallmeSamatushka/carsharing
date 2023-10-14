@@ -1,4 +1,3 @@
-import classes from './RegisterView.module.scss';
 import classNames from 'classnames';
 import { FC } from 'react';
 
@@ -7,7 +6,5 @@ interface RegisterViewProps {
 }
 
 export const RegisterView: FC<RegisterViewProps> = (props) => {
-  return (
-    <div className={classNames(classes.RegisterView, props.className)}></div>
-  );
+  return <div className={classNames(props.className)}></div>;
 };

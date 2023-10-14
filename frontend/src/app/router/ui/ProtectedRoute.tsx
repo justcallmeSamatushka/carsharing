@@ -1,8 +1,11 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { Permission, Routes } from '@/shared';
-import { LoadingLayout } from '@/shared/layouts';
-import { validatePermissions } from '@/shared/utils/validations/validatePermissons.ts';
+import {
+  LoadingLayout,
+  Permission,
+  Routes,
+  validatePermissions,
+} from '@/shared';
 
 // import { validatePermissions } from '@utils/authentication';
 // import { useGetCurrentUser } from './useGetCurrentUser';

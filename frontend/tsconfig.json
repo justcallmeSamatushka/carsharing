@@ -19,11 +19,12 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
       "shared": ["./src/shared/*"],
       "widgets": ["./src/widgets/*"],
-      "views": ["./src/views/*"],
+      "views": ["./src/views/*"]
     }
   },
   "include": ["src"],

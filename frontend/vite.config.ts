@@ -6,10 +6,13 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: [
-      { find: '@', replacement: path.dirname('src') },
-      { find: 'shared', replacement: path.dirname('src/shared') },
-      { find: 'views', replacement: path.dirname('src/views') },
-      { find: 'widgets', replacement: path.dirname('src/widgets') },
+      { find: '@', replacement: path.resolve(__dirname, './src') },
+      { find: 'shared', replacement: path.resolve(__dirname, './src/shared') },
+      { find: 'views', replacement: path.resolve(__dirname, './src/views') },
+      {
+        find: 'widgets',
+        replacement: path.resolve(__dirname, './src/widgets'),
+      },
     ],
   },
 });
