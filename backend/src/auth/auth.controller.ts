@@ -31,7 +31,7 @@ export class AuthController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @Post('/login')
+  @Post('/auth')
   login(@Body() dto: UserLoginDto) {
     return this.authService.login(dto);
   }

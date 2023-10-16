@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 
 // import { AlertProvider } from '@contexts/AlertContext';
 import { Permission, Routes } from '@/shared';
-import { ErrorView, HomeView, LoginView } from '@/views';
+import { ErrorView, HomeView, AuthView } from '@/views';
 import { ProtectedRoute } from './ProtectedRoute.tsx';
 
 export const router = createBrowserRouter([
@@ -22,6 +22,10 @@ export const router = createBrowserRouter([
   {
     index: true,
     path: Routes.login,
-    element: <LoginView />,
+    element: (
+      <ProtectedRoute permissions={[Permission.IS_UNAUTHENTICATED]}>
+        <AuthView />
+      </ProtectedRoute>
+    ),
   },
 ]);

@@ -7,9 +7,6 @@ import {
   validatePermissions,
 } from '@/shared';
 
-// import { validatePermissions } from '@utils/authentication';
-// import { useGetCurrentUser } from './useGetCurrentUser';
-
 type PropsType = {
   children: React.ReactElement;
   permissions: Permission[];
