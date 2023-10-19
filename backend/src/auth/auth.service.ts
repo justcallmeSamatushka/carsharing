@@ -4,6 +4,8 @@ import { UserSignupDto } from './dto/auth-signup.dto';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { UserLoginDto } from './dto/auth-login.dto';
+import { UserEntity } from '../user/entity/user-entity';
+import { MyLogger } from '../config/logger';
 
 @Injectable()
 export class AuthService {
@@ -43,5 +45,16 @@ export class AuthService {
       lastName: dto.lastName,
       firstName: dto.firstName,
     });
+  }
+
+  async googleLogin(user: UserEntity) {
+    if (!user) {
+      return 'No user from google';
+    }
+
+    return {
+      message: 'User information from google',
+      user,
+    };
   }
 }

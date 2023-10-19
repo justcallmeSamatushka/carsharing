@@ -16,8 +16,8 @@ export class UserController {
     return this.userService.getAllUsers();
   }
 
-  @Post()
-  createUser(@Body() dto: UserSignupDto) {
-    return this.userService.createUser(dto);
-  }
+  // @Post()
+  // createUser(@Body() dto: UserSignupDto) {
+  //   return this.userService.createUser(dto);
+  // }
 }

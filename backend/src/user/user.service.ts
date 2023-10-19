@@ -4,9 +4,12 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserSignupDto } from '../auth/dto/auth-signup.dto';
 import { CrudService } from '../shared/crud.service';
+import { MyLogger } from '../config/logger';
 
 @Injectable()
 export class UserService extends CrudService<UserEntity> {
+  private readonly logger = new MyLogger();
+
   constructor(
     @InjectRepository(UserEntity)
     private userRepository: Repository<UserEntity>,
