@@ -1,14 +1,18 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
+import { RentService } from '../rent/rent.service';
 import { AutoService } from './auto.service';
 import { AutoController } from './auto.controller';
-import { CrudService } from '../shared/crud.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserEntity } from '../user/entity/user-entity';
 import { AutoEntity } from './entity/auto-entity';
+import { RentModule } from '../rent/rent.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([AutoEntity])],
-  providers: [AutoService, CrudService],
+  imports: [
+    TypeOrmModule.forFeature([AutoEntity]),
+    forwardRef(() => RentModule),
+  ],
+  providers: [AutoService],
   controllers: [AutoController],
+  exports: [AutoService],
 })
 export class AutoModule {}

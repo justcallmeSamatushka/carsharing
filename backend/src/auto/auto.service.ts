@@ -1,41 +1,31 @@
 import { Injectable } from '@nestjs/common';
+import { CreateAutoDto } from './dto/auto-dto';
+import { AutoEntity } from './entity/auto-entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CrudService } from '../shared/crud.service';
-import { AutoEntity } from './entity/auto-entity';
-import { AutoDto } from './dto/auto-dto';
+import { RentService } from '../rent/rent.service';
 
 @Injectable()
 export class AutoService {
   constructor(
     @InjectRepository(AutoEntity)
-    private autoRepository: Repository<AutoEntity>,
+    private readonly autoRepository: Repository<AutoEntity>,
+    private readonly rentService: RentService,
   ) {}
 
-  async create(dto: AutoDto) {
+  async create(dto: CreateAutoDto) {
     return this.autoRepository.save(dto);
   }
+  async findAll({ page = 0, limit = 20, keyword = '' }) {
+    const skip = (page - 1) * limit;
+    const query = this.autoRepository
+      .createQueryBuilder('auto')
+      .where('car.brand LIKE :keyword OR car.model LIKE :keyword', {
+        keyword: `%${keyword}%`,
+      })
+      .take(limit)
+      .skip(skip);
 
-  async findById(id: number) {
-    return this.autoRepository.findOne({
-      where: {
-        id,
-      },
-    });
-  }
-
-  async deleteById(id: number) {
-    return this.autoRepository.delete({
-      id,
-    });
-  }
-
-  async update(dto: AutoEntity) {
-    return this.autoRepository.update(
-      {
-        id: dto.id,
-      },
-      dto,
-    );
+    return await query.getMany();
   }
 }

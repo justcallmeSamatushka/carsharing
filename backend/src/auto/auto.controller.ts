@@ -1,40 +1,44 @@
 import {
   Body,
   Controller,
-  Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
-  Put,
+  Query,
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { QueryParams } from './interface/query-params';
+import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { AutoService } from './auto.service';
 import { AutoEntity } from './entity/auto-entity';
-import { AutoDto } from './dto/auto-dto';
+import { CreateAutoDto } from './dto/auto-dto';
 
-@Controller('auto')
+@ApiTags('Auto')
 @ApiBearerAuth()
-@ApiTags('Auto-Park')
+@Controller('/auto')
 export class AutoController {
-  constructor(private readonly autoService: AutoService) {}
-
-  @Get()
-  getById(@Param('id') id: string) {
-    return this.autoService.findById(+id);
-  }
+  constructor(private autoService: AutoService) {}
 
   @Post()
-  create(@Body() dto: AutoDto) {
-    return this.autoService.create(dto);
+  async create(@Body() dto: CreateAutoDto): Promise<AutoEntity> {
+    return await this.autoService.create(dto);
   }
-
-  @Delete()
-  delete(@Param('id') id: string) {
-    return this.autoService.deleteById(+id);
-  }
-
-  @Put()
-  update(@Body() dto: AutoEntity) {
-    return this.autoService.update(dto);
-  }
+  //
+  // @Get('/:id/available')
+  // async checkIfCarIsAvailable(@Param('id', ParseIntPipe) id: number) {
+  //   return await this.autoService.checkAvailability(id);
+  // }
+  //
+  // @Get()
+  // @ApiQuery({ type: Number, name: 'limit', required: false })
+  // @ApiQuery({ type: Number, name: 'page', required: false })
+  // @ApiQuery({ type: String, name: 'keyword', required: false })
+  // async findAll(@Query() query: QueryParams): Promise<AutoEntity[]> {
+  //   return await this.autoService.findAll(query);
+  // }
+  //
+  // @Get('/:id')
+  // async findOne(@Param('id', ParseIntPipe) id: number): Promise<AutoEntity> {
+  //   return await this.autoService.findOne(id);
+  // }
 }

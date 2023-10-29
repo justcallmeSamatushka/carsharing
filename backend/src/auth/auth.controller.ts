@@ -15,20 +15,16 @@ import { AuthGuard } from './guards/auth-guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UserEntity } from '../user/entity/user-entity';
 import { User } from '../shared/utils';
-import { AuthGuard as PassAuthGuard } from '@nestjs/passport';
-import { MyLogger } from '../config/logger';
 
 @ApiTags('Authorization')
 @ApiBearerAuth()
 @Controller()
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
-  private readonly logger = new MyLogger();
 
   @UseGuards(AuthGuard)
   @Get('profile')
   getProfile(@User() user: UserEntity) {
-    this.logger.log(user);
     return user;
   }
 

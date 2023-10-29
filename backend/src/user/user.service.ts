@@ -3,19 +3,13 @@ import { UserEntity } from './entity/user-entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserSignupDto } from '../auth/dto/auth-signup.dto';
-import { CrudService } from '../shared/crud.service';
-import { MyLogger } from '../config/logger';
 
 @Injectable()
-export class UserService extends CrudService<UserEntity> {
-  private readonly logger = new MyLogger();
-
+export class UserService {
   constructor(
     @InjectRepository(UserEntity)
     private userRepository: Repository<UserEntity>,
-  ) {
-    super(userRepository);
-  }
+  ) {}
 
   async findUser(email: string) {
     return this.userRepository.findOne({

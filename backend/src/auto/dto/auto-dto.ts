@@ -1,25 +1,24 @@
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { Column } from 'typeorm';
+import { IsNotEmpty, IsString } from 'class-validator';
 
-export class AutoDto {
+export class CreateAutoDto {
   @ApiProperty()
-  @IsString()
   @IsNotEmpty()
-  model: string;
+  @IsString()
+  readonly brand: string;
 
-  @ApiProperty()
-  @IsString()
   @IsNotEmpty()
-  color: string;
+  @IsString()
+  @ApiProperty()
+  readonly model: string;
 
-  @ApiProperty()
-  @IsString()
   @IsNotEmpty()
-  brand: string;
+  @IsString()
+  @ApiProperty()
+  readonly state_number: string;
 
-  @ApiProperty()
-  @IsString()
   @IsNotEmpty()
-  type: string;
+  @IsString()
+  @ApiProperty()
+  readonly vin: string;
 }

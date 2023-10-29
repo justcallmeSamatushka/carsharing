@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class AutoEntity {
@@ -6,17 +6,14 @@ export class AutoEntity {
   id: number;
 
   @Column()
-  model: string;
-
-  @Column()
-  color: string;
-
-  @Column()
-  type: string;
-
-  @Column()
   brand: string;
 
   @Column()
-  price: number;
+  model: string;
+
+  @Column()
+  state_number: string;
+
+  @Column()
+  vin: string;
 }
