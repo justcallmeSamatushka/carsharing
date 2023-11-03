@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateAutoDto {
   @ApiProperty()
@@ -21,4 +21,9 @@ export class CreateAutoDto {
   @IsString()
   @ApiProperty()
   readonly vin: string;
+
+  @IsNotEmpty()
+  @IsBoolean()
+  @ApiProperty()
+  readonly available: boolean;
 }

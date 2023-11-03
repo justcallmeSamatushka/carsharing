@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAutoDto } from './dto/auto-dto';
 import { AutoEntity } from './entity/auto-entity';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -16,16 +16,32 @@ export class AutoService {
   async create(dto: CreateAutoDto) {
     return this.autoRepository.save(dto);
   }
-  async findAll({ page = 0, limit = 20, keyword = '' }) {
+  async findAll({ page = 1, limit = 20, keyword = '' }) {
     const skip = (page - 1) * limit;
     const query = this.autoRepository
       .createQueryBuilder('auto')
-      .where('car.brand LIKE :keyword OR car.model LIKE :keyword', {
+      .where('auto.brand LIKE :keyword OR auto.model LIKE :keyword', {
         keyword: `%${keyword}%`,
       })
       .take(limit)
       .skip(skip);
 
     return await query.getMany();
+  }
+
+  async findOne(id: number) {
+    return this.autoRepository.findOne({
+      where: {
+        id,
+      },
+    });
+  }
+
+  async checkAvailability(id: number) {
+    const auto = await this.findOne(id);
+
+    if (auto.available) {
+      return auto;
+    }
   }
 }

@@ -16,4 +16,7 @@ export class AutoEntity {
 
   @Column()
   vin: string;
+
+  @Column({ default: true })
+  available: boolean;
 }
