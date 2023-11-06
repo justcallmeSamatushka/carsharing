@@ -1,1 +1,1 @@
-export { AuthView } from './ui/AuthView.tsx';
+export { AuthPage } from './ui/AuthPage.tsx';
